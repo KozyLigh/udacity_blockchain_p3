@@ -25,6 +25,38 @@ npm install crypto-js --save
 npm install level --save
 ```
 
+- Install hapi with --save flag
+```
+npm install hapi --save
+```
+
+- Install joi with --save flag
+```
+npm i joi --save
+```
+
+## Server
+
+The web server is listening to requests on port 8000
+
+Address: http://localhost:8000
+
+## Rest API methods
+
+The server supports two methods.
+
+GET:
+Path:/block/{height}
+height can only be an integer value 0 and up.
+
+Method returns a block with the specified height,
+if the block does not exist, it returns HttpStatus 400
+
+POST:
+Path:/block
+Method expects a payload parameter body with string content, minimum length of 1
+Method will return a HttpStatus 400 if payload parameter body is empty or missing
+
 ## Testing
 
 To test code:
@@ -59,3 +91,4 @@ for (var i = 0; i < inducedErrorBlocks.length; i++) {
 ```
 blockchain.validateChain();
 ```
+

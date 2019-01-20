@@ -31,13 +31,12 @@ class Block {
 
 class Blockchain {
     constructor() {
-
     }
 
     // Add new block
-    addBlock(newBlock) {
+    async addBlock(newBlock) {
         let self = this;
-        return new Promise(function(resolve, reject) {
+        let prom = new Promise(function(resolve, reject) {
 
             //check if Genesis block exists, if not create new Genesis block
             db.getLevelDBData(0).then((result) => {
@@ -70,15 +69,15 @@ class Blockchain {
                             }
                             // Block hash with SHA256 using newBlock and converting to a string
                             newBlock.hash = SHA256(JSON.stringify(newBlock)).toString();
-
                             // Adding block object to chain
+
                             db.addLevelDBData(parseInt(newBlock.height, 10), JSON.stringify(newBlock).toString()).then((result) => {
                                 if (!result) {
                                     console.log("Error Adding data");
                                     reject();
                                 } else {
                                     self.validateBlock(result.height).then((result) => {
-                                        resolve(result);
+                                        resolve(JSON.stringify(newBlock).toString());
                                     }, (err) => {
                                         reject(err);
                                     });
@@ -109,9 +108,11 @@ class Blockchain {
                     console.log(err);
                 });
             });
-            resolve;
+            resolve(JSON.stringify(newBlock).toString());
         });
 
+        let result = await prom;
+        return result;
     }
 
     // Get block height
@@ -243,3 +244,8 @@ function theLoop(i, bc) {
     }, 100);
 
 };
+
+module.exports = {
+    Blockchain : Blockchain,
+    Block : Block
+}
