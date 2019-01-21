@@ -39,7 +39,7 @@ server.route({
         let body = request.payload.body;
         let block = new scb.constructor(body);
         let newBlock = await sc.addBlock(block);
-        return newBlock;
+        return JSON.parse(newBlock);
 
     },
     options: {

@@ -77,7 +77,13 @@ Request payload object example:
 
 Response example:
 ```
-{"hash":"35e955fb4b7b69d18b9c7a2bb9720e195c9c7625c9f2a703a671916b8f835758","height":675,"body":"test adding block 1234","time":"1548054594","previousBlockHash":"b8cb358cbfaa484633dd25397d1d7d9bf68b1c3bde8a37f3ce84fa428f34eb0b"}
+{
+    "hash": "78b2459a5185e433156a6d43a85041fe4365a4dbe49b48a42dbc413fbaa99dfd",
+    "height": 677,
+    "body": "test adding block 12346",
+    "time": "1548074386",
+    "previousBlockHash": "1e296d22e096b93f7a63efba1190d2d46cdb93a487f169bd3513982f5b0e7a0f"
+}
 ```
 ## Testing
 
