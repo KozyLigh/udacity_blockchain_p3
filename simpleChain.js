@@ -205,44 +205,6 @@ class Blockchain {
     }
 }
 
-(function run() {
-    let bc = new Blockchain();
-    theLoop(1, bc);
-})(0);
-
-function theLoop(i, bc) {
-    setTimeout(function() {
-        let blockTest = new Block("Test Block - " + (i + 1));
-        bc.addBlock(blockTest).then((result) => {
-            i++;
-            if (i < 10) {
-                theLoop(i, bc);
-            } else {
-                console.log('#####validating#####');
-                bc.validateChain().then((result) => {
-                    if (result.length > 0) {
-                        console.log('Chain has errors!');
-                        console.log('Blocks with errors = ' + result.length);
-                        for (let i = 0; i <= result.length - 1; i++) {
-                            console.log('Blocks: ' + result[i]);
-                        }
-                        bc.getBlockHeight().then((res) => {
-                            console.log('block height=' + parseInt(res, 10));
-                        });
-                    } else {
-                        console.log('chain looks good');
-                        bc.getBlockHeight().then((res) => {
-                            console.log('block height=' + parseInt(res, 10));
-                        });
-                    }
-
-                })
-            }
-
-        });
-    }, 100);
-
-};
 
 module.exports = {
     Blockchain : Blockchain,
