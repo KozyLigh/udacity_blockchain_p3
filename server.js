@@ -36,7 +36,7 @@ server.route({
     method:'POST',
     path:'/block',
     handler:async function(request,h) {
-        const { body } = request.payload.body;
+        let body = request.payload.body;
         let block = new scb.constructor(body);
         let newBlock = await sc.addBlock(block);
         return newBlock;

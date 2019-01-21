@@ -71,13 +71,13 @@ Method will return a HttpStatus 400 if payload parameter body is empty or missin
 Request payload object example:
 ```
 {
-"body":"test adding block"
+"body":"test adding block 1234"
 }
 ```
 
 Response example:
 ```
-{"hash":"b0a6862a502b96ba0655f13fd2ae8b6ed304edc34ded5b976d3a783b36bce54f","height":592,"time":"1548053611","previousBlockHash":"de19912c7f8410d0ca06f6261de593a4af25b6ad0a98f0a3f9ff63525f5edc14"}
+{"hash":"35e955fb4b7b69d18b9c7a2bb9720e195c9c7625c9f2a703a671916b8f835758","height":675,"body":"test adding block 1234","time":"1548054594","previousBlockHash":"b8cb358cbfaa484633dd25397d1d7d9bf68b1c3bde8a37f3ce84fa428f34eb0b"}
 ```
 ## Testing
 
