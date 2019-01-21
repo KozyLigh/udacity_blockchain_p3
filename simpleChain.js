@@ -108,7 +108,6 @@ class Blockchain {
                     console.log(err);
                 });
             });
-            resolve(JSON.stringify(newBlock).toString());
         });
 
         let result = await prom;

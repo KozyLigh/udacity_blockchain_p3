@@ -52,11 +52,33 @@ height can only be an integer value 0 and up.
 Method returns a block with the specified height,
 if the block does not exist, it returns HttpStatus 400
 
+Response example:
+```
+{
+    "hash": "ad5c9f6c57a604b32be9b94b274b4ada68dd262ec53f6cea4836e7f4f7bfe0d1",
+    "height": 50,
+    "body": "Test Block - 6",
+    "time": "1548019606",
+    "previousBlockHash": "96dc365263ab0b098c16b5170267ff04cc811de493b928526fe7be13e475232f"
+}
+```
+
 POST:
 Path:/block
 Method expects a payload parameter body with string content, minimum length of 1
 Method will return a HttpStatus 400 if payload parameter body is empty or missing
 
+Request payload object example:
+```
+{
+"body":"test adding block"
+}
+```
+
+Response example:
+```
+{"hash":"b0a6862a502b96ba0655f13fd2ae8b6ed304edc34ded5b976d3a783b36bce54f","height":592,"time":"1548053611","previousBlockHash":"de19912c7f8410d0ca06f6261de593a4af25b6ad0a98f0a3f9ff63525f5edc14"}
+```
 ## Testing
 
 To test code:
