@@ -109,8 +109,14 @@ Path:/message-signature/validate
 Response example:
 ```
 {
-"address":"19xaiMqayaNrn3x7AjV5cU4Mk5f5prRVpL",
- "signature":"H8K4+1MvyJo9tcr2YN2KejwvX1oqneyCH+fsUL1z1WBdWmswB9bijeFfOfMqK68kQ5RO6ZxhomoXQG3fkLaBl+Q="
+    "registerStar": true,
+    "status": {
+        "address": "19xaiMqayaNrn3x7AjV5cU4Mk5f5prRVpL",
+        "requestTimeStamp": "1544454641",
+        "message": "19xaiMqayaNrn3x7AjV5cU4Mk5f5prRVpL:1544454641:starRegistry",
+        "validationWindow": 193,
+        "messageSignature": true
+    }
 }
 ```
 
@@ -119,26 +125,32 @@ POST:
 Post a claim for a star 
 Path: /block 
 ```
-{"address":"28ecEqCy8LfsK17b4v5ansJfXpiyhDzB3T",  
-"star": {"dec": "68° 52\' 56.9","ra": "16h 29m 1.0s","story": "Found star using https://www.google.com/sky/"}}
+{
+    "address": "19xaiMqayaNrn3x7AjV5cU4Mk5f5prRVpL",
+    "star": {
+                "dec": "68° 52' 56.9",
+                "ra": "16h 29m 1.0s",
+                "story": "Found star using https://www.google.com/sky/"
+            }
+}
 ```
 
 
 Response example:
 ```
 {
-  "hash": "78cd0333a2065660785244293241007ac5a029b881fbc873c00ac9d96bca7364",
-  "height": 31,
-  "body": {
-    "address": "18ecEqCy8LfsK17b4v5ansJfXpiyhDzB3T",
-    "star": {
-      "dec": "68° 52' 56.9",
-      "ra": "16h 29m 1.0s",
-      "story": "466f756e642073746172207573696e672068747470733a2f2f7777772e676f6f676c652e636f6d2f736b792f"
-    }
-  },
-  "time": "1546256476",
-  "previousBlockHash": "ab499550ea6b727ae5148eda016d4f2b03605b40038943935d8044cd2256e328"
+    "hash": "8098c1d7f44f4513ba1e7e8ba9965e013520e3652e2db5a7d88e51d7b99c3cc8",
+    "height": 1,
+    "body": {
+        "address": "19xaiMqayaNrn3x7AjV5cU4Mk5f5prRVpL",
+        "star": {
+            "ra": "16h 29m 1.0s",
+            "dec": "68° 52' 56.9",
+            "story": "466f756e642073746172207573696e672068747470733a2f2f7777772e676f6f676c652e636f6d2f736b792f"
+        }
+    },
+    "time": "1544455399",
+    "previousBlockHash": "639f8e4c4519759f489fc7da607054f50b212b7d8171e7717df244da2f7f2394"
 }
 ```
 
@@ -150,19 +162,19 @@ Path:/stars/hash:[HASH]
 Response example:
 ```
 {
-  "hash": "78cd0333a2065660785244293241007ac5a029b881fbc873c00ac9d96bca7364",
-  "height": 31,
+  "hash": "a59e9e399bc17c2db32a7a87379a8012f2c8e08dd661d7c0a6a4845d4f3ffb9f",
+  "height": 1,
   "body": {
-    "address": "28ecEqCy8LfsK17b4v5ansJfXpiyhDzB3T",
+    "address": "142BDCeSGbXjWKaAnYXbMpZ6sbrSAo3DpZ",
     "star": {
-      "dec": "68° 52' 56.9",
       "ra": "16h 29m 1.0s",
+      "dec": "-26° 29' 24.9",
       "story": "466f756e642073746172207573696e672068747470733a2f2f7777772e676f6f676c652e636f6d2f736b792f",
       "storyDecoded": "Found star using https://www.google.com/sky/"
     }
   },
-  "time": "1546256476",
-  "previousBlockHash": "ab499550ea6b727ae5148eda016d4f2b03605b40038943935d8044cd2256e328"
+  "time": "1532296234",
+  "previousBlockHash": "49cce61ec3e6ae664514d5fa5722d86069cf981318fc303750ce66032d0acff3"
 }
 ```
 
@@ -174,19 +186,34 @@ Response example:
 ```
 [
   {
-    "hash": "78cd0333a2065660785244293241007ac5a029b881fbc873c00ac9d96bca7364",
-    "height": 31,
+    "hash": "a59e9e399bc17c2db32a7a87379a8012f2c8e08dd661d7c0a6a4845d4f3ffb9f",
+    "height": 1,
     "body": {
-      "address": "28ecEqCy8LfsK17b4v5ansJfXpiyhDzB3T",
+      "address": "142BDCeSGbXjWKaAnYXbMpZ6sbrSAo3DpZ",
       "star": {
-        "dec": "68° 52' 56.9",
         "ra": "16h 29m 1.0s",
+        "dec": "-26° 29' 24.9",
         "story": "466f756e642073746172207573696e672068747470733a2f2f7777772e676f6f676c652e636f6d2f736b792f",
         "storyDecoded": "Found star using https://www.google.com/sky/"
       }
     },
-    "time": "1546256476",
-    "previousBlockHash": "ab499550ea6b727ae5148eda016d4f2b03605b40038943935d8044cd2256e328"
+    "time": "1532296234",
+    "previousBlockHash": "49cce61ec3e6ae664514d5fa5722d86069cf981318fc303750ce66032d0acff3"
+  },
+  {
+    "hash": "6ef99fc533b9725bf194c18bdf79065d64a971fa41b25f098ff4dff29ee531d0",
+    "height": 2,
+    "body": {
+      "address": "142BDCeSGbXjWKaAnYXbMpZ6sbrSAo3DpZ",
+      "star": {
+        "ra": "17h 22m 13.1s",
+        "dec": "-27° 14' 8.2",
+        "story": "466f756e642073746172207573696e672068747470733a2f2f7777772e676f6f676c652e636f6d2f736b792f",
+        "storyDecoded": "Found star using https://www.google.com/sky/"
+      }
+    },
+    "time": "1532330848",
+    "previousBlockHash": "a59e9e399bc17c2db32a7a87379a8012f2c8e08dd661d7c0a6a4845d4f3ffb9f"
   }
 ]
 ```
@@ -200,55 +227,18 @@ Path:/block/{height}
 Response example:
 ```
 {
-  "hash": "dd3cb5c31adb75702ae97bd0b79e0cf92d4286d9dc0cfe5f41a40158bf1c0d65",
+  "hash": "a59e9e399bc17c2db32a7a87379a8012f2c8e08dd661d7c0a6a4845d4f3ffb9f",
   "height": 1,
   "body": {
-    "address": "1DHEcCVTpQisJVwoDtoSzyD86SwzmY4UzG",
+    "address": "142BDCeSGbXjWKaAnYXbMpZ6sbrSAo3DpZ",
     "star": {
-      "dec": "68° 52' 56.9",
       "ra": "16h 29m 1.0s",
+      "dec": "-26° 29' 24.9",
       "story": "466f756e642073746172207573696e672068747470733a2f2f7777772e676f6f676c652e636f6d2f736b792f",
       "storyDecoded": "Found star using https://www.google.com/sky/"
     }
   },
-  "time": "1546255664",
-  "previousBlockHash": "78c601d161387579963fd8462717c53b188ce95f8baffb612edc4df8b50768a5"
+  "time": "1532296234",
+  "previousBlockHash": "49cce61ec3e6ae664514d5fa5722d86069cf981318fc303750ce66032d0acff3"
 }
 ```
-
-## Testing
-
-To test code:
-1: Open a command prompt or shell terminal after install node.js.
-2: Enter a node session, also known as REPL (Read-Evaluate-Print-Loop).
-```
-node
-```
-3: Copy and paste your code into your node session
-4: Instantiate blockchain with blockchain variable
-```
-let blockchain = new Blockchain();
-```
-5: Generate 10 blocks using a for loop
-```
-for (var i = 0; i <= 10; i++) {
-  blockchain.addBlock(new Block("test data "+i));
-}
-```
-6: Validate blockchain
-```
-blockchain.validateChain();
-```
-7: Induce errors by changing block data
-```
-let inducedErrorBlocks = [2,4,7];
-for (var i = 0; i < inducedErrorBlocks.length; i++) {
-  blockchain.chain[inducedErrorBlocks[i]].data='induced chain error';
-}
-```
-8: Validate blockchain. The chain should now fail with blocks 2,4, and 7.
-```
-blockchain.validateChain();
-```
-
-
