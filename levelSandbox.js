@@ -59,6 +59,7 @@ class LevelSandbox {
         })
     }
 
+
     getBlocksCount() {
         let self = this;
         // Add your code here
@@ -70,6 +71,10 @@ class LevelSandbox {
                 resolve(number);});
 
         })
+    }
+
+    getBlockStream() {
+        return this.db.createValueStream();
     }
 
 }

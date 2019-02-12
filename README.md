@@ -1,8 +1,8 @@
-# Blockchain Data
+# P4 - Build a Private Blockchain Notary Service
 
-Blockchain has the potential to change the way that the world approaches data. Develop Blockchain skills by understanding the data model behind Blockchain by developing your own simplified private blockchain.
+* Blockchain Star Registry Service
 
-## Getting Started
+## Setup
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
@@ -10,30 +10,24 @@ These instructions will get you a copy of the project up and running on your loc
 
 Installing Node and NPM is pretty straightforward using the installer package available from the (Node.js® web site)[https://nodejs.org/en/].
 
-### Configuring your project
+$ node --version
+    v11.5.0
 
-- Use NPM to initialize your project and create package.json to store project dependencies.
-```
-npm init
-```
-- Install crypto-js with --save flag to save dependency to our package.json file
-```
-npm install crypto-js --save
-```
-- Install level with --save flag
-```
-npm install level --save
-```
+    $ npm --version
+    6.5.0
 
-- Install hapi with --save flag
-```
-npm install hapi --save
-```
+### Download project from repo
 
-- Install joi with --save flag
-```
-npm i joi --save
-```
+https://github.com/KozyLigh/udacity_blockchain_p3.git
+
+$ cd udacity-private-blockchain_p3
+$ npm install
+
+### Running the project
+
+To start the Web API on **localhost:8000**, run the following:
+
+    $ npm start
 
 ## Server
 
@@ -85,6 +79,144 @@ Response example:
     "previousBlockHash": "1e296d22e096b93f7a63efba1190d2d46cdb93a487f169bd3513982f5b0e7a0f"
 }
 ```
+
+POST:
+Request Validation 
+Path:/requestValidation 
+```{    "address":"28ecEqCy8LfsK17b4v5ansJfXpiyhDzB3T"}```
+
+Response example:
+```
+{
+  "walletAddress": "28ecEqCy8LfsK17b4v5ansJfXpiyhDzB3T",
+  "requestTimeStamp": "1546257945",
+  "message": "28ecEqCy8LfsK17b4v5ansJfXpiyhDzB3T:1546255945:starRegistry",
+  "validationWindow": 300
+}
+````
+
+POST:
+Validate a Signature 
+Path:/message-signature/validate 
+```{"address":"28ecEqCy8LfsK17b4v5ansJfXpiyhDzB3T",   "signature":"H2mEWlo0AnE6XjUIkDpSV93XAawqib3kHa+uIPWGphklO+bF5hrMNdVqu0NTgVvolZ/WV6uJi8mwXB/7by8K0KQ="}```
+
+
+Response example:
+```
+{
+  "registerStar": true,
+  "status": {
+    "address": "28ecEqCy8LfsK17b4v5ansJfXpiyhDzB3T",
+    "requestTimeStamp": "1546256313",
+    "message": "28ecEqCy8LfsK17b4v5ansJfXpiyhDzB3T:1546256313:starRegistry",
+    "validationWindow": 300,
+    "messageSignature": true
+  }
+}
+```
+
+
+POST:
+Post a claim for a star 
+Path: /block 
+```
+{"address":"28ecEqCy8LfsK17b4v5ansJfXpiyhDzB3T",  
+"star": {"dec": "68° 52\' 56.9","ra": "16h 29m 1.0s","story": "Found star using https://www.google.com/sky/"}}
+```
+
+
+Response example:
+```
+{
+  "hash": "78cd0333a2065660785244293241007ac5a029b881fbc873c00ac9d96bca7364",
+  "height": 31,
+  "body": {
+    "address": "18ecEqCy8LfsK17b4v5ansJfXpiyhDzB3T",
+    "star": {
+      "dec": "68° 52' 56.9",
+      "ra": "16h 29m 1.0s",
+      "story": "466f756e642073746172207573696e672068747470733a2f2f7777772e676f6f676c652e636f6d2f736b792f"
+    }
+  },
+  "time": "1546256476",
+  "previousBlockHash": "ab499550ea6b727ae5148eda016d4f2b03605b40038943935d8044cd2256e328"
+}
+```
+
+GET:
+Get star block by block hash 
+Path:/stars/hash:[HASH] 
+
+
+Response example:
+```
+{
+  "hash": "78cd0333a2065660785244293241007ac5a029b881fbc873c00ac9d96bca7364",
+  "height": 31,
+  "body": {
+    "address": "28ecEqCy8LfsK17b4v5ansJfXpiyhDzB3T",
+    "star": {
+      "dec": "68° 52' 56.9",
+      "ra": "16h 29m 1.0s",
+      "story": "466f756e642073746172207573696e672068747470733a2f2f7777772e676f6f676c652e636f6d2f736b792f",
+      "storyDecoded": "Found star using https://www.google.com/sky/"
+    }
+  },
+  "time": "1546256476",
+  "previousBlockHash": "ab499550ea6b727ae5148eda016d4f2b03605b40038943935d8044cd2256e328"
+}
+```
+
+GET:
+Get stars by wallet address 
+Path:/stars/address:[ADDRESS] 
+
+Response example:
+```
+[
+  {
+    "hash": "78cd0333a2065660785244293241007ac5a029b881fbc873c00ac9d96bca7364",
+    "height": 31,
+    "body": {
+      "address": "28ecEqCy8LfsK17b4v5ansJfXpiyhDzB3T",
+      "star": {
+        "dec": "68° 52' 56.9",
+        "ra": "16h 29m 1.0s",
+        "story": "466f756e642073746172207573696e672068747470733a2f2f7777772e676f6f676c652e636f6d2f736b792f",
+        "storyDecoded": "Found star using https://www.google.com/sky/"
+      }
+    },
+    "time": "1546256476",
+    "previousBlockHash": "ab499550ea6b727ae5148eda016d4f2b03605b40038943935d8044cd2256e328"
+  }
+]
+```
+
+
+
+GET:
+Get star block by block height 
+Path:/block/{height}
+
+Response example:
+```
+{
+  "hash": "dd3cb5c31adb75702ae97bd0b79e0cf92d4286d9dc0cfe5f41a40158bf1c0d65",
+  "height": 1,
+  "body": {
+    "address": "1DHEcCVTpQisJVwoDtoSzyD86SwzmY4UzG",
+    "star": {
+      "dec": "68° 52' 56.9",
+      "ra": "16h 29m 1.0s",
+      "story": "466f756e642073746172207573696e672068747470733a2f2f7777772e676f6f676c652e636f6d2f736b792f",
+      "storyDecoded": "Found star using https://www.google.com/sky/"
+    }
+  },
+  "time": "1546255664",
+  "previousBlockHash": "78c601d161387579963fd8462717c53b188ce95f8baffb612edc4df8b50768a5"
+}
+```
+
 ## Testing
 
 To test code:
@@ -119,4 +251,5 @@ for (var i = 0; i < inducedErrorBlocks.length; i++) {
 ```
 blockchain.validateChain();
 ```
+
 

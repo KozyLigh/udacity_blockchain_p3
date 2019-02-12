@@ -23,7 +23,12 @@ class Block {
             this.time = 0,
             this.previousBlockHash = ""
     }
+    getBlockHash() {
+        return SHA256(SHA256(JSON.stringify({...this,hash:''})).toString()).toString();
+    }
 }
+
+
 
 /* ===== Blockchain Class ==========================
 |  Class with a constructor for new blockchain 		|
@@ -203,6 +208,65 @@ class Blockchain {
         });
 
     }
+
+    // Utility to inject a decoded story into block (not for genesis)
+
+    _withDecodedStory(block) {
+        if (block.height > 0) {
+            const encodedStory = block.body.star.story;
+            block.body.star.storyDecoded = Buffer.from(encodedStory, 'hex').toString('utf8');
+        }
+        return block;
+    }
+
+    // Block By Height with a decoded story
+    getBlockDecodedStory(height) {
+        let self = this;
+        return this.db.getLevelDBData(height)
+            .then(block => {
+                    return self._withDecodedStory(block);
+                },
+                () => {
+                    throw new Error(`No block at height ${height}`);
+                });
+    }
+
+    // Returns block for Star with hash
+    // if no match error is thrown
+
+    getStarByHash(hash) {
+        let self = this;
+        return new Promise((resolve, reject) => {
+            this.db.getBlockStream()
+                .on('data', blockStr => {
+                    const testBlock = JSON.parse(blockStr);
+                    if (testBlock.hash === hash) {
+                        const block = self._withDecodedStory(testBlock);
+                        resolve(block);
+                    }
+                })
+                .on('end', () => reject(new Error('No such hash in blockchain')));
+        });
+    }
+
+    // Returns Stars with matching address
+
+    getStarsByAddress(address) {
+        let self = this;
+        let blockArray = [];
+        return new Promise((resolve, reject) => {
+            this.db.getBlockStream()
+                .on('data', blockStr => {
+                    const testBlock = JSON.parse(blockStr);
+                    if (testBlock && testBlock.body && testBlock.body.address === address) {
+                        const block = self._withDecodedStory(testBlock);
+                        blockArray.push(block);
+                    }
+                })
+                .on('end', () => resolve(blockArray));
+        });
+    }
+
 }
 
 
