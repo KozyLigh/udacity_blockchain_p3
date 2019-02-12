@@ -8,6 +8,7 @@ const MemPool = require('./mempool.js');
 module.exports = function assignRoutes(server) {
 
     let myBlockChain = new Simple.Blockchain();
+
     let memPool = new MemPool();
 
     // Accepts a request validation for an address
@@ -81,7 +82,7 @@ module.exports = function assignRoutes(server) {
                         address,
                         star: encodedStar
                     };
-                    const block = new Block(body);
+                    const block = new Simple.Block(body);
                     await myBlockChain.addBlock(block);
                     // Make sure only one Star can be send in the request
                     memPool.removeRequestFromPool(address);
