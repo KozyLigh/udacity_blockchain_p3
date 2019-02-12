@@ -83,35 +83,34 @@ Response example:
 POST:
 Request Validation 
 Path:/requestValidation 
-```{    "address":"28ecEqCy8LfsK17b4v5ansJfXpiyhDzB3T"}```
+```{ "address":"19xaiMqayaNrn3x7AjV5cU4Mk5f5prRVpL" }```
 
 Response example:
 ```
 {
-  "walletAddress": "28ecEqCy8LfsK17b4v5ansJfXpiyhDzB3T",
-  "requestTimeStamp": "1546257945",
-  "message": "28ecEqCy8LfsK17b4v5ansJfXpiyhDzB3T:1546255945:starRegistry",
-  "validationWindow": 300
+    "walletAddress": "19xaiMqayaNrn3x7AjV5cU4Mk5f5prRVpL",
+    "requestTimeStamp": "1550002561",
+    "message": "19xaiMqayaNrn3x7AjV5cU4Mk5f5prRVpL:1550002561:starRegistry",
+    "validationWindow": 283
 }
 ````
 
 POST:
 Validate a Signature 
 Path:/message-signature/validate 
-```{"address":"28ecEqCy8LfsK17b4v5ansJfXpiyhDzB3T",   "signature":"H2mEWlo0AnE6XjUIkDpSV93XAawqib3kHa+uIPWGphklO+bF5hrMNdVqu0NTgVvolZ/WV6uJi8mwXB/7by8K0KQ="}```
+```
+{
+"address":"19xaiMqayaNrn3x7AjV5cU4Mk5f5prRVpL",
+ "signature":"H8K4+1MvyJo9tcr2YN2KejwvX1oqneyCH+fsUL1z1WBdWmswB9bijeFfOfMqK68kQ5RO6ZxhomoXQG3fkLaBl+Q="
+}
+```
 
 
 Response example:
 ```
 {
-  "registerStar": true,
-  "status": {
-    "address": "28ecEqCy8LfsK17b4v5ansJfXpiyhDzB3T",
-    "requestTimeStamp": "1546256313",
-    "message": "28ecEqCy8LfsK17b4v5ansJfXpiyhDzB3T:1546256313:starRegistry",
-    "validationWindow": 300,
-    "messageSignature": true
-  }
+"address":"19xaiMqayaNrn3x7AjV5cU4Mk5f5prRVpL",
+ "signature":"H8K4+1MvyJo9tcr2YN2KejwvX1oqneyCH+fsUL1z1WBdWmswB9bijeFfOfMqK68kQ5RO6ZxhomoXQG3fkLaBl+Q="
 }
 ```
 

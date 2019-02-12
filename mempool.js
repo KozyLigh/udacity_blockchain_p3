@@ -1,42 +1,19 @@
 const loki = require('lokijs');
-const Request = require('./Request');
+const Request = require('./request');
 const BitcoinMessage = require('bitcoinjs-message');
 const VALIDATION_WINDOW = 300;
 
-/**
- * LokiJS is an in-memory synchronous database
- * (it's synchronous because it's single-threaded
- * and in-memory hence you won't see callbacks below)
- */
+//LokiJS is an in-memory synchronous database
 
 module.exports = class MemPool {
 
-    /**
-     * Starts the LokiJS in-memory database
-     * and instantiates a Request collection
-     *
-     * @fires lokijs.Loki#addCollection
-     */
     constructor() {
         this.db = new loki("blockchain.db");
         this.requests = this.db.addCollection("request");
     }
 
+    // Updates an existing request or adds if new
 
-    /**
-     * Updates an existing request or adds if new
-     *
-     * When a new request is created it is set with the default validation window
-     * and a timeout call to remove the request once the window expires.
-     * If a successful validation occurs before the timeout, the timeout will be cancelled
-     * and the message flagged as correctly signed.
-     *
-     * @fires lokijs.Collection#update
-     * @fires lokijs.Collection#insert
-     * @param {Request} request Request to add into mempool
-     * @returns {Request} request with current validation window
-     * @private
-     */
     _upsertRequest(request) {
         const existingRequest = this.requests.findObject({walletAddress: request.getWalletAddress()});
         if (existingRequest) {
@@ -49,7 +26,7 @@ module.exports = class MemPool {
             this.requests.update(existingRequest);
             return existingRequest;
         } else {
-            // Once the Validation Window expires, the request will be removed from mempool
+            // Once the Validation Window expires, the request will be removed
             request.timeoutID = setTimeout(this._removeRequest(request), VALIDATION_WINDOW * 1000);
             this.requests.insert(request);
             return request;
@@ -57,17 +34,7 @@ module.exports = class MemPool {
     }
 
 
-    /**
-     * Generates a function to delete a specified request
-     *
-     * When the returned function is executed, the request
-     * (which is unique for an address) is removed from the Mempool
-     *
-     * @fires lokijs.Collection#findAndRemove
-     * @param walletAddress String that represents a unique wallet address
-     * @returns {Function} Mempool request deleter
-     * @private
-     */
+    // Generates a function to delete a specified request
     _removeRequest({walletAddress}) {
         return () => {
             this.requests.findAndRemove({walletAddress});
@@ -75,12 +42,7 @@ module.exports = class MemPool {
     }
 
 
-    /**
-     * Updates an existing request (validation window) or creates new
-     *
-     * @param walletAddress
-     * @returns {Request} A new or modified request
-     */
+    // Updates an existing request (validation window) or creates new
     addARequestValidation(walletAddress) {
         const request = new Request({walletAddress, validationWindow: VALIDATION_WINDOW});
         const newRequest = this._upsertRequest(request);
@@ -94,14 +56,8 @@ module.exports = class MemPool {
     }
 
 
-    /**
-     * Returns the request for the wallet address
-     * There is only either 1 or 0 requests in the mempool for an address
-     *
-     * @param {string} walletAddress
-     * @param {string} signature
-     * @returns {Request}
-     */
+    // Returns the request for the wallet address
+
     validateRequestByWallet(walletAddress, signature) {
         const request = this.requests.find({walletAddress})[0];
         if (!request) {
@@ -110,11 +66,14 @@ module.exports = class MemPool {
         if (request.messageSignature) {
             throw new Error('Request already successfully signed - you can already register a star');
         }
+        console.log(request.message);
+        console.log("Validating address=" + walletAddress + ", sig="+signature);
+
         const isValid = BitcoinMessage.verify(request.message, walletAddress, signature);
         if (isValid) {
             // Once correctly signed, the timeout is cancelled
             clearTimeout(request.timeoutID);
-            // Flag this request as permissioned for registering a single star
+            // Flag this request as allowed for registering a single star
             request.messageSignature = true;
             this.requests.update(request);
             // Prepare return payload
@@ -133,12 +92,8 @@ module.exports = class MemPool {
     }
 
 
-    /**
-     * Verify that the address has been signed
-     *
-     * @param {string} walletAddress signed wallet address
-     * @returns {boolean} true if the address has already been verified with a correct signature
-     */
+    // Verify that the address has been signed
+
     verifyAddressRequest(walletAddress) {
         const request = this.requests.find({walletAddress})[0];
         if (!request) {
@@ -151,14 +106,8 @@ module.exports = class MemPool {
     }
 
 
-    /**
-     * Removes request from MemPool
-     *
-     * Used to ensure that a request can only be used
-     * to claim one star on the blockchain
-     *
-     * @param {string} walletAddress address to remove from mempool
-     */
+    // Removes request from MemPool
+
     removeRequestFromPool(walletAddress) {
         this.requests.findAndRemove({walletAddress});
     }

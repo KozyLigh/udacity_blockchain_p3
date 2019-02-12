@@ -1,23 +1,17 @@
 const Boom = require('boom');
 const Joi = require('joi');
 const Simple = require('./simpleChain.js');
-const scb = new Simple.Block();
-const sc = new Simple.Blockchain();
+
 const MemPool = require('./mempool.js');
 
 
-/**
- * @desc Configure routing, setup BlockChain ledger and MemPool
- * @param server
- */
 module.exports = function assignRoutes(server) {
 
-    let myBlockChain = new BlockChain();
+    let myBlockChain = new Simple.Blockchain();
     let memPool = new MemPool();
 
-    /**
-     * Accepts a request validation for an address
-     */
+    // Accepts a request validation for an address
+
     server.route({
         method: 'POST',
         path: '/requestValidation',
@@ -42,11 +36,8 @@ module.exports = function assignRoutes(server) {
     });
 
 
-    /**
-     * Accepts a signature validation
-     *
-     * Validation will be stored in mempool
-     */
+    // Accepts a signature validation
+
     server.route({
         method: 'POST',
         path: '/message-signature/validate',
@@ -71,9 +62,8 @@ module.exports = function assignRoutes(server) {
     });
 
 
-    /**
-     * Accepts a block for an address (that is signed in the mempool)
-     */
+    // Accepts a block for an address (that is signed in the mempool)
+
     server.route({
         method: 'POST',
         path: '/block',
@@ -112,11 +102,8 @@ module.exports = function assignRoutes(server) {
     });
 
 
-    /**
-     * Get Star block by hash with JSON response.
-     *
-     * http://localhost:8000/stars/hash:[HASH]
-     */
+    // Get Star block by hash with JSON response.
+
     server.route({
             method: 'GET',
             path: '/stars/hash:{hash}',
@@ -139,15 +126,8 @@ module.exports = function assignRoutes(server) {
     );
 
 
-    /**
-     * Get Star block by wallet address (blockchain identity)
-     * with JSON response.
-     *
-     * Returns a list of Stars because of one wallet address
-     * can be used to register multiple Stars
-     *
-     * http://localhost:8000/stars/address:[ADDRESS]
-     */
+    // Get Star block by wallet address (blockchain identity)
+
     server.route({
             method: 'GET',
             path: '/stars/address:{address}',
@@ -171,11 +151,8 @@ module.exports = function assignRoutes(server) {
     );
 
 
-    /**
-     * Get star block by star block height with JSON response.
-     *
-     * http://localhost:8000/block/[HEIGHT]
-     */
+    // Get star block by star block height with JSON response.
+
     server.route({
             method: 'GET',
             path: '/block/{height}',
@@ -199,13 +176,8 @@ module.exports = function assignRoutes(server) {
     );
 
 
-    /**
-     * Get current info.
-     *
-     * Only height is currently returned.
-     *
-     * http://localhost:8000/info
-     */
+    // Get current info.
+
     server.route({
         method: 'GET',
         path: '/info',
@@ -219,10 +191,8 @@ module.exports = function assignRoutes(server) {
     });
 
 
-    /**
-     * Validate BlockChain
-     * Since this is a non-mutating action, it's a GET rather than a POST
-     */
+    // Validate BlockChain
+
     server.route({
         method: 'GET',
         path: '/validateChain',

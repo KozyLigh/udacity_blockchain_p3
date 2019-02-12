@@ -3,17 +3,11 @@
 |  =========================================================*/
 //Importing levelSandbox class
 const LevelSandboxClass = require('./levelSandbox.js');
-
-// Creating the levelSandbox class object
-const db = new LevelSandboxClass.LevelSandbox();
-
 const SHA256 = require('crypto-js/sha256');
-
-
+const db = new LevelSandboxClass.LevelSandbox();
 /* ===== Block Class ==============================
 |  Class with a constructor for block 			   |
 |  ===============================================*/
-
 
 class Block {
     constructor(data) {
@@ -36,6 +30,7 @@ class Block {
 
 class Blockchain {
     constructor() {
+
     }
 
     // Add new block
@@ -48,7 +43,7 @@ class Blockchain {
                 if (result == undefined) {
                     let block = new Block("First block in the chain - Genesis block");
                     block.time = new Date().getTime().toString().slice(0, -3);
-                    block.hash = SHA256(JSON.stringify(block)).toString();
+                    block.hash = block.getBlockHash();//SHA256(JSON.stringify(block)).toString();
                     db.addLevelDBData(0, JSON.stringify(block).toString()).then((result) => {
                         if (!result) {
                             reject();
@@ -73,7 +68,7 @@ class Blockchain {
                                 newBlock.previousBlockHash = oldBlock.hash;
                             }
                             // Block hash with SHA256 using newBlock and converting to a string
-                            newBlock.hash = SHA256(JSON.stringify(newBlock)).toString();
+                            newBlock.hash = newBlock.getBlockHash();//SHA256(JSON.stringify(newBlock)).toString();
                             // Adding block object to chain
 
                             db.addLevelDBData(parseInt(newBlock.height, 10), JSON.stringify(newBlock).toString()).then((result) => {
@@ -222,8 +217,10 @@ class Blockchain {
     // Block By Height with a decoded story
     getBlockDecodedStory(height) {
         let self = this;
-        return this.db.getLevelDBData(height)
+
+        return db.getLevelDBData(height)
             .then(block => {
+
                     return self._withDecodedStory(block);
                 },
                 () => {
@@ -237,7 +234,7 @@ class Blockchain {
     getStarByHash(hash) {
         let self = this;
         return new Promise((resolve, reject) => {
-            this.db.getBlockStream()
+            self.db.getBlockStream()
                 .on('data', blockStr => {
                     const testBlock = JSON.parse(blockStr);
                     if (testBlock.hash === hash) {

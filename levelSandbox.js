@@ -27,24 +27,21 @@ class LevelSandbox {
     }
 // Get data from levelDB with a key (Promise)
     getLevelDBData(key){
+
         let self = this;
+        return self.db.get(key)
+            .then(block => {
 
-
-        return new Promise(function(resolve, reject) {
-            self.db.get(key, (err, value) => {
-                if(err){
-                    if (err.type == 'NotFoundError') {
-                        console.log('getLevelDBData NotFoundError');
-                        resolve(undefined);
-                    }else {
-                        console.log('Block ' + key + ' get failed', err);
-                        reject(err);
+                return new Promise((resolve, reject) => {
+                    try {
+                        const jsonText = JSON.parse(block);
+                        resolve(jsonText);
                     }
-                }else {
-                    resolve(value);
-                }
+                    catch (error) {
+                        reject(error);
+                    }
+                });
             });
-        });
     }
 
     getBlocksHeight() {
