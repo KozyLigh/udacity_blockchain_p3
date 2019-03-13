@@ -131,7 +131,7 @@ class Blockchain {
                 if (data == undefined) {
                     resolve(undefined);
                 } else {
-                    resolve(JSON.parse(data));
+                    resolve(data);
                 }
 
             }).catch((error) => {

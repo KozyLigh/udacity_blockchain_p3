@@ -51,7 +51,7 @@ module.exports = class MemPool {
             "walletAddress":newRequest.walletAddress,
             "requestTimeStamp":newRequest.requestTimeStamp,
             "message":newRequest.message,
-            "validationWindow":newRequest.validationWindow
+            "validationWindow":VALIDATION_WINDOW
         };
     }
 
@@ -70,7 +70,8 @@ module.exports = class MemPool {
         console.log("Validating address=" + walletAddress + ", sig="+signature);
 
         const isValid = BitcoinMessage.verify(request.message, walletAddress, signature);
-        if (isValid) {
+
+        if (!isValid) {
             // Once correctly signed, the timeout is cancelled
             clearTimeout(request.timeoutID);
             // Flag this request as allowed for registering a single star

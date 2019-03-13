@@ -83,6 +83,7 @@ module.exports = function assignRoutes(server) {
                         star: encodedStar
                     };
                     const block = new Simple.Block(body);
+
                     await myBlockChain.addBlock(block);
                     // Make sure only one Star can be send in the request
                     memPool.removeRequestFromPool(address);
