@@ -13,25 +13,12 @@ class LevelSandbox {
     }
 // Add data to levelDB with key and value (Promise)
     addLevelDBData(key, value) {
-        let self = this;
-        return new Promise(function(resolve, reject) {
-            self.db.put(key, value, function(err) {
-                if (err) {
-                    console.log('Block ' + key + ' submission failed', err);
-                    reject(err);
-                }
-                console.log('Block ' + key + ' submission successful =' + value);
-                resolve(JSON.parse(value));
-            });
-        });
+        return this.db.put(key, JSON.stringify(value).toString());
     }
 // Get data from levelDB with a key (Promise)
     getLevelDBData(key){
-
-        let self = this;
-        return self.db.get(key)
+        return this.db.get(key)
             .then(block => {
-
                 return new Promise((resolve, reject) => {
                     try {
                         const jsonText = JSON.parse(block);
@@ -46,14 +33,13 @@ class LevelSandbox {
 
     getBlocksHeight() {
         let self = this;
-        return new Promise(function(resolve, reject){
-            var stream = self.db.createReadStream({});
-            var height=0;
-            stream.on('data', function (data, err) { if(err){reject(err);} if(parseInt(JSON.parse(data.value).height,10)>height) height=parseInt(JSON.parse(data.value).height,10);
-            }).on('error',function(){reject();}).on('close',function(){
-                resolve(height);
-            });
-        })
+        let height=0;
+        return new Promise(function (resolve, reject) {
+            self.db.createReadStream({})
+                .on('data', () => height=height+1)
+                .on('error', (err) => reject(err))
+                .on('end', () => resolve(height));
+        });
     }
 
 

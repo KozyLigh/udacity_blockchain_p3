@@ -83,7 +83,7 @@ module.exports = function assignRoutes(server) {
                         star: encodedStar
                     };
                     const block = new Simple.Block(body);
-
+                    console.log("myBlockChain.addBlock(block);");
                     await myBlockChain.addBlock(block);
                     // Make sure only one Star can be send in the request
                     memPool.removeRequestFromPool(address);
@@ -112,6 +112,7 @@ module.exports = function assignRoutes(server) {
             handler: async function (request, h) {
                 try {
                     const hash = request.params.hash;
+                    console.log("checking for hash="+hash)
                     return await myBlockChain.getStarByHash(hash);
                 } catch (e) {
                     return Boom.badRequest(e.message);

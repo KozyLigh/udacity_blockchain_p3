@@ -14,7 +14,7 @@ module.exports = class MemPool {
 
     // Updates an existing request or adds if new
 
-    _upsertRequest(request) {
+    _handleRequest(request) {
         const existingRequest = this.requests.findObject({walletAddress: request.getWalletAddress()});
         if (existingRequest) {
             if (existingRequest.messageSignature) {
@@ -45,7 +45,7 @@ module.exports = class MemPool {
     // Updates an existing request (validation window) or creates new
     addARequestValidation(walletAddress) {
         const request = new Request({walletAddress, validationWindow: VALIDATION_WINDOW});
-        const newRequest = this._upsertRequest(request);
+        const newRequest = this._handleRequest(request);
         // LokiJS metadata and additional Request fields are stripped out
         return {
             "walletAddress":newRequest.walletAddress,
@@ -63,8 +63,20 @@ module.exports = class MemPool {
         if (!request) {
             throw new Error('No pending request for address');
         }
-        if (request.messageSignature) {
-            throw new Error('Request already successfully signed - you can already register a star');
+        // if (request.messageSignature) {
+        //     throw new Error('Request already successfully signed - you can already register a star');
+        // }
+        if(request.messageSignature && request.validationWindow>0){
+            return {
+                "registerStar": true,
+                "status": {
+                    "address": request.walletAddress,
+                    "requestTimeStamp": request.requestTimeStamp,
+                    "message": request.message,
+                    "validationWindow": request.validationWindow,
+                    "messageSignature": true
+                }
+            };
         }
         console.log(request.message);
         console.log("Validating address=" + walletAddress + ", sig="+signature);
