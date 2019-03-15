@@ -83,15 +83,15 @@ Response example:
 POST:
 Request Validation 
 Path:/requestValidation 
-```{ "address":"19xaiMqayaNrn3x7AjV5cU4Mk5f5prRVpL" }```
+```{ "address":"159B6oiSJSHHZKNNyKNCYNTHCt9jSH3P2R" }```
 
 Response example:
 ```
 {
-    "walletAddress": "19xaiMqayaNrn3x7AjV5cU4Mk5f5prRVpL",
-    "requestTimeStamp": "1550002561",
-    "message": "19xaiMqayaNrn3x7AjV5cU4Mk5f5prRVpL:1550002561:starRegistry",
-    "validationWindow": 283
+    "walletAddress": "159B6oiSJSHHZKNNyKNCYNTHCt9jSH3P2R",
+    "requestTimeStamp": "1552682311",
+    "message": "159B6oiSJSHHZKNNyKNCYNTHCt9jSH3P2R:1552682311:starRegistry",
+    "validationWindow": 284
 }
 ````
 
@@ -100,8 +100,8 @@ Validate a Signature
 Path:/message-signature/validate 
 ```
 {
-"address":"19xaiMqayaNrn3x7AjV5cU4Mk5f5prRVpL",
- "signature":"H8K4+1MvyJo9tcr2YN2KejwvX1oqneyCH+fsUL1z1WBdWmswB9bijeFfOfMqK68kQ5RO6ZxhomoXQG3fkLaBl+Q="
+"address":"159B6oiSJSHHZKNNyKNCYNTHCt9jSH3P2R",
+ "signature":"HxHaiPtVbzuac6cTa7kdEuYQkFeolURnU+3jxVnpEd3xf/FcsUYicP1xqGuAXiSqAVm33lJPUEA6EWeOAqn9UbQ="
 }
 ```
 
@@ -111,10 +111,10 @@ Response example:
 {
     "registerStar": true,
     "status": {
-        "address": "19xaiMqayaNrn3x7AjV5cU4Mk5f5prRVpL",
-        "requestTimeStamp": "1544454641",
-        "message": "19xaiMqayaNrn3x7AjV5cU4Mk5f5prRVpL:1544454641:starRegistry",
-        "validationWindow": 193,
+        "address": "159B6oiSJSHHZKNNyKNCYNTHCt9jSH3P2R",
+        "requestTimeStamp": "1552682311",
+        "message": "159B6oiSJSHHZKNNyKNCYNTHCt9jSH3P2R:1552682311:starRegistry",
+        "validationWindow": 284,
         "messageSignature": true
     }
 }
@@ -126,12 +126,12 @@ Post a claim for a star
 Path: /block 
 ```
 {
-    "address": "19xaiMqayaNrn3x7AjV5cU4Mk5f5prRVpL",
-    "star": {
-                "dec": "68° 52' 56.9",
-                "ra": "16h 29m 1.0s",
-                "story": "Found star using https://www.google.com/sky/"
-            }
+"address": "159B6oiSJSHHZKNNyKNCYNTHCt9jSH3P2R",
+"star": {
+	"dec": "63° 52' 56.9",
+    "ra": "15h 29m 1.0s",
+    "story": "Found star using https://www.google.com/sky/"
+    }
 }
 ```
 
@@ -139,18 +139,18 @@ Path: /block
 Response example:
 ```
 {
-    "hash": "8098c1d7f44f4513ba1e7e8ba9965e013520e3652e2db5a7d88e51d7b99c3cc8",
-    "height": 1,
+    "hash": "e2b2e930c79bb607925f0c753c5fdd813fa06e4e6598725ae4ef292cee457079",
+    "height": 3,
     "body": {
-        "address": "19xaiMqayaNrn3x7AjV5cU4Mk5f5prRVpL",
+        "address": "159B6oiSJSHHZKNNyKNCYNTHCt9jSH3P2R",
         "star": {
-            "ra": "16h 29m 1.0s",
-            "dec": "68° 52' 56.9",
+            "dec": "63° 52' 56.9",
+            "ra": "15h 29m 1.0s",
             "story": "466f756e642073746172207573696e672068747470733a2f2f7777772e676f6f676c652e636f6d2f736b792f"
         }
     },
-    "time": "1544455399",
-    "previousBlockHash": "639f8e4c4519759f489fc7da607054f50b212b7d8171e7717df244da2f7f2394"
+    "time": "1552682330",
+    "previousBlockHash": "9ea9c46522f136138690c2ed46899c0b77f3a19739ddf1736cce91aa47413c19"
 }
 ```
 
@@ -162,19 +162,19 @@ Path:/stars/hash:[HASH]
 Response example:
 ```
 {
-  "hash": "a59e9e399bc17c2db32a7a87379a8012f2c8e08dd661d7c0a6a4845d4f3ffb9f",
-  "height": 1,
-  "body": {
-    "address": "142BDCeSGbXjWKaAnYXbMpZ6sbrSAo3DpZ",
-    "star": {
-      "ra": "16h 29m 1.0s",
-      "dec": "-26° 29' 24.9",
-      "story": "466f756e642073746172207573696e672068747470733a2f2f7777772e676f6f676c652e636f6d2f736b792f",
-      "storyDecoded": "Found star using https://www.google.com/sky/"
-    }
-  },
-  "time": "1532296234",
-  "previousBlockHash": "49cce61ec3e6ae664514d5fa5722d86069cf981318fc303750ce66032d0acff3"
+    "hash": "91af3febbe08558416f54832f3505d1f0dd990225b9670e35115c73590fcb84f",
+    "height": 1,
+    "body": {
+        "address": "159B6oiSJSHHZKNNyKNCYNTHCt9jSH3P2R",
+        "star": {
+            "dec": "68° 52' 56.9",
+            "ra": "16h 29m 1.0s",
+            "story": "466f756e642073746172207573696e672068747470733a2f2f7777772e676f6f676c652e636f6d2f736b792f",
+            "storyDecoded": "Found star using https://www.google.com/sky/"
+        }
+    },
+    "time": "1552552932",
+    "previousBlockHash": "97899b8d9e6c3a0cd4be38cf87510b7928fd91214a209213d7eeb5b62bc44543"
 }
 ```
 
@@ -185,36 +185,51 @@ Path:/stars/address:[ADDRESS]
 Response example:
 ```
 [
-  {
-    "hash": "a59e9e399bc17c2db32a7a87379a8012f2c8e08dd661d7c0a6a4845d4f3ffb9f",
-    "height": 1,
-    "body": {
-      "address": "142BDCeSGbXjWKaAnYXbMpZ6sbrSAo3DpZ",
-      "star": {
-        "ra": "16h 29m 1.0s",
-        "dec": "-26° 29' 24.9",
-        "story": "466f756e642073746172207573696e672068747470733a2f2f7777772e676f6f676c652e636f6d2f736b792f",
-        "storyDecoded": "Found star using https://www.google.com/sky/"
-      }
+    {
+        "hash": "91af3febbe08558416f54832f3505d1f0dd990225b9670e35115c73590fcb84f",
+        "height": 1,
+        "body": {
+            "address": "159B6oiSJSHHZKNNyKNCYNTHCt9jSH3P2R",
+            "star": {
+                "dec": "68° 52' 56.9",
+                "ra": "16h 29m 1.0s",
+                "story": "466f756e642073746172207573696e672068747470733a2f2f7777772e676f6f676c652e636f6d2f736b792f",
+                "storyDecoded": "Found star using https://www.google.com/sky/"
+            }
+        },
+        "time": "1552552932",
+        "previousBlockHash": "97899b8d9e6c3a0cd4be38cf87510b7928fd91214a209213d7eeb5b62bc44543"
     },
-    "time": "1532296234",
-    "previousBlockHash": "49cce61ec3e6ae664514d5fa5722d86069cf981318fc303750ce66032d0acff3"
-  },
-  {
-    "hash": "6ef99fc533b9725bf194c18bdf79065d64a971fa41b25f098ff4dff29ee531d0",
-    "height": 2,
-    "body": {
-      "address": "142BDCeSGbXjWKaAnYXbMpZ6sbrSAo3DpZ",
-      "star": {
-        "ra": "17h 22m 13.1s",
-        "dec": "-27° 14' 8.2",
-        "story": "466f756e642073746172207573696e672068747470733a2f2f7777772e676f6f676c652e636f6d2f736b792f",
-        "storyDecoded": "Found star using https://www.google.com/sky/"
-      }
+    {
+        "hash": "9ea9c46522f136138690c2ed46899c0b77f3a19739ddf1736cce91aa47413c19",
+        "height": 2,
+        "body": {
+            "address": "159B6oiSJSHHZKNNyKNCYNTHCt9jSH3P2R",
+            "star": {
+                "dec": "63° 52' 56.9",
+                "ra": "15h 29m 1.0s",
+                "story": "466f756e642073746172207573696e672068747470733a2f2f7777772e676f6f676c652e636f6d2f736b792f",
+                "storyDecoded": "Found star using https://www.google.com/sky/"
+            }
+        },
+        "time": "1552553136",
+        "previousBlockHash": "91af3febbe08558416f54832f3505d1f0dd990225b9670e35115c73590fcb84f"
     },
-    "time": "1532330848",
-    "previousBlockHash": "a59e9e399bc17c2db32a7a87379a8012f2c8e08dd661d7c0a6a4845d4f3ffb9f"
-  }
+    {
+        "hash": "e2b2e930c79bb607925f0c753c5fdd813fa06e4e6598725ae4ef292cee457079",
+        "height": 3,
+        "body": {
+            "address": "159B6oiSJSHHZKNNyKNCYNTHCt9jSH3P2R",
+            "star": {
+                "dec": "63° 52' 56.9",
+                "ra": "15h 29m 1.0s",
+                "story": "466f756e642073746172207573696e672068747470733a2f2f7777772e676f6f676c652e636f6d2f736b792f",
+                "storyDecoded": "Found star using https://www.google.com/sky/"
+            }
+        },
+        "time": "1552682330",
+        "previousBlockHash": "9ea9c46522f136138690c2ed46899c0b77f3a19739ddf1736cce91aa47413c19"
+    }
 ]
 ```
 
@@ -227,18 +242,18 @@ Path:/block/{height}
 Response example:
 ```
 {
-  "hash": "a59e9e399bc17c2db32a7a87379a8012f2c8e08dd661d7c0a6a4845d4f3ffb9f",
-  "height": 1,
-  "body": {
-    "address": "142BDCeSGbXjWKaAnYXbMpZ6sbrSAo3DpZ",
-    "star": {
-      "ra": "16h 29m 1.0s",
-      "dec": "-26° 29' 24.9",
-      "story": "466f756e642073746172207573696e672068747470733a2f2f7777772e676f6f676c652e636f6d2f736b792f",
-      "storyDecoded": "Found star using https://www.google.com/sky/"
-    }
-  },
-  "time": "1532296234",
-  "previousBlockHash": "49cce61ec3e6ae664514d5fa5722d86069cf981318fc303750ce66032d0acff3"
+    "hash": "91af3febbe08558416f54832f3505d1f0dd990225b9670e35115c73590fcb84f",
+    "height": 1,
+    "body": {
+        "address": "159B6oiSJSHHZKNNyKNCYNTHCt9jSH3P2R",
+        "star": {
+            "dec": "68° 52' 56.9",
+            "ra": "16h 29m 1.0s",
+            "story": "466f756e642073746172207573696e672068747470733a2f2f7777772e676f6f676c652e636f6d2f736b792f",
+            "storyDecoded": "Found star using https://www.google.com/sky/"
+        }
+    },
+    "time": "1552552932",
+    "previousBlockHash": "97899b8d9e6c3a0cd4be38cf87510b7928fd91214a209213d7eeb5b62bc44543"
 }
 ```

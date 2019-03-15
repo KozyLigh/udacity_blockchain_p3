@@ -51,7 +51,7 @@ module.exports = class MemPool {
             "walletAddress":newRequest.walletAddress,
             "requestTimeStamp":newRequest.requestTimeStamp,
             "message":newRequest.message,
-            "validationWindow":VALIDATION_WINDOW
+            "validationWindow":newRequest.validationWindow
         };
     }
 
