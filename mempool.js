@@ -83,7 +83,7 @@ module.exports = class MemPool {
 
         const isValid = BitcoinMessage.verify(request.message, walletAddress, signature);
 
-        if (!isValid) {
+        if (isValid) {
             // Once correctly signed, the timeout is cancelled
             clearTimeout(request.timeoutID);
             // Flag this request as allowed for registering a single star
